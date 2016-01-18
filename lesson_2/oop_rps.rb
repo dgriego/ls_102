@@ -23,27 +23,26 @@ class Hand
 
   def >(other_move)
     if rock?
-      (other_move.scissors?) ? true : false
+      other_move.scissors?
     elsif paper?
-      (other_move.rock?) ? true : false
+      other_move.rock?
     else
-      (other_move.paper?) ? true : false
+      other_move.paper?
     end
   end
 
   def <(other_move)
     if rock?
-      (other_move.paper?) ? true : false
+      other_move.paper?
     elsif paper?
-      (other_move.scissors?) ? true : false
+      other_move.scissors?
     else
-      (other_move.rock?) ? true : false
+      other_move.rock?
     end
   end
 end
 
 class Player
-  COMPUTER_NAMES = ['R2D2', 'Hal9000', 'C3PO']
   attr_accessor :choice, :name
 
   def initialize
@@ -80,8 +79,10 @@ class Human < Player
 end
 
 class Computer < Player
+  NAMES = ['R2D2', 'Hal9000', 'C3PO']
+
   def set_name
-    self.name = COMPUTER_NAMES.sample
+    self.name = NAMES.sample
   end
 
   def choose
@@ -95,12 +96,6 @@ class RPSGame
   def initialize
     @human = Human.new
     @computer = Computer.new
-  end
-
-  def win?(choice1, choice2)
-    (choice1 == "paper" && choice2 == "rock") ||
-      (choice1 == "rock" && choice2 == "scissors") ||
-      (choice1 == "scissors" && choice2 == "paper")
   end
 
   def display_moves
