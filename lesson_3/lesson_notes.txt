@@ -1,0 +1,74 @@
+# Booleans
+an object whose only purpose is to convey whether
+it is 'true' or 'false'
+In Ruby Booleans are represented by the true and false objects
+boolean objects have real classes behind them
+which means they are methods that you can call on true or false
+true.class
+true.nil?
+true.methods
+
+false.class
+false.nil?
+false.to_s
+false.methods
+
+Ruby short circuits the && operator
+false && 3/0
+it will not evaluate 3/0 because it hit false first
+
+Everything in Ruby is considered "truthy" except for false or nil
+
+# Equivalence
+when you are comparing values you are actually comparing the
+values of those objects
+
+str1 = 'string' # represents an object of the String class
+str2 = 'string2' # represents a different object of the String class
+
+str1 == str2 # compares the objects values
+str1.equal? str2 # compares the objects
+
+Rubyists use symbols over string for Hash keys because
+it saves on memory.  You can't modify a symbol or an integer.
+This is performance optimization
+
+the eql? method determines if the two objects contain the same value
+and if they're of the same class.  This method is used most often by Hash
+to determine equality aong its members.
+
+# Instance Variable Scope
+@var is scoped at the object level
+They are used to track individual object state
+They do not cross over between objects
+
+# Class Variable Scope
+@@var are scoped at the class level
+- all objects share 1 copy of the class Variable
+- class methods can access class variables, regardless of where it is initialized
+
+# Inheritance and Variable scope
+How does Sub classing affect instance variables
+class variables can be reassigned from a sub class
+
+  Summary
+
+Instance Variables behave the way we would expect.
+The only thing to watch out for is to make sure
+the instance variable is initialized before referencing it.
+
+Class Variables have a very insidious behavior of allowing
+sub-classes to override super-class class variables. Further,
+the change will affect all other sub-classes of the super-class.
+This is extremely unintuitive behavior,
+forcing some Rubyists to eschew using class variables altogether.
+
+Constants have lexical scope which makes their
+scope resolution rules very unique compared to other
+variable types. If Ruby doesn't find the constant using lexical scope,
+it'll then look at the inheritance heirarchy.
+
+# Fake Operators
+real operators: &&, ||, .., ..., ? :, =, %=, -=, +=, &=, >>=, <<=, *=,
+                &&=, ||=, **=, {
+
