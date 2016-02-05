@@ -178,15 +178,17 @@ class Game
         display_board_and_current_scores
         place_piece_and_alternate_players
 
-        break if board.full? || round_winner?
+        break if board.full? || round_winner
       end
 
       display_round_winning_board_and_winner
       reset
 
-      reset_player_scores if game_winner?
-
-      break if play_again?
+      # reset_player_scores if game_winner?
+      if game_winner?
+        reset_player_scores
+        break if play_again?
+      end
     end
 
     display_goodbye_message
@@ -202,19 +204,19 @@ class Game
 
   def display_round_winning_board_and_winner
     system('clear')
+    system('cls')
     board.render
     display_round_winner_and_add_game_win
-    puts "=> #{@winner.name} WINS THE GAME!" if game_winner?
+    if game_winner?
+      puts "=> #{@winner.name} WINS THE GAME!"
+      puts "=> #{@winner.name} WINS THE GAME!"
+    end
     sleep(1)
   end
 
   def play_again?
     puts '=> Would you like to play again?(y/n)'
-    if game_winner?
-      gets.chomp.start_with?('n')
-    else
-      false
-    end
+    gets.chomp.start_with?('n')
   end
 
   def display_board_and_current_scores
@@ -229,6 +231,7 @@ class Game
 
   def display_welcome_message
     system('clear')
+    system('cls')
 
     puts "#{human.name}, Welcome to Tic Tac Toe!\n" \
          "First to win #{ROUND_WIN_MAX} games wins =>"
@@ -249,7 +252,7 @@ class Game
     @current_player = @current_player.class == Computer ? human : computer
   end
 
-  def round_winner? # => returns 'x', 'o' or nil
+  def round_winner # => returns 'x', 'o' or nil
     winning_marker = board.winning_marker
 
     if winning_marker == human.marker
